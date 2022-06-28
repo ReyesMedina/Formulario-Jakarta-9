@@ -22,55 +22,53 @@ public class FormServlet extends HttpServlet {
         String password = req.getParameter("password");
         String email = req.getParameter("email");
         String pais = req.getParameter("pais");
-        String [] lenguajes = req.getParameterValues("lenguajes");
-        String [] roles = req.getParameterValues("roles");
+        String[] lenguajes = req.getParameterValues("lenguajes");
+        String[] roles = req.getParameterValues("roles");
         String idioma = req.getParameter("idioma");
-        boolean habilitar = req.getParameter("habilitar")!=null && req.getParameter("habilitar").equals("on");
+        boolean habilitar = req.getParameter("habilitar") != null && req.getParameter("habilitar").equals("on");
         String secreto = req.getParameter("secreto");
 
 
         List<String> errores = new ArrayList<>();
-        if(username == null || username.isBlank()){
+        if (username == null || username.isBlank()) {
             errores.add("El username es requerido");
         }
-        if(password == null || password.isBlank()){
+        if (password == null || password.isBlank()) {
             errores.add("El password es requerido");
         }
-        if(username == null || username.isBlank()){
-            errores.add("El username es requerido");
-        }
-        if(email == null || !email.contains("@")){
+
+        if (email == null || !email.contains("@")) {
             errores.add("El email es requerido y debe tener un formato de correo.");
         }
 
-        if(pais == null || pais.equals("") || pais.equals(" ")){
+        if (pais == null || pais.equals("") || pais.equals(" ")) {
             errores.add("El pais es requerido");
         }
 
-        if(lenguajes == null || lenguajes.length ==0){
+        if (lenguajes == null || lenguajes.length == 0) {
             errores.add("debes seleccionar al menos un lenguaje");
         }
-        if(roles == null || roles.length ==0){
+        if (roles == null || roles.length == 0) {
             errores.add("debes seleccionar al menos un rol");
         }
-        if(idioma == null ){
+        if (idioma == null) {
             errores.add("debes seleccionar un idioma");
         }
 
 
+        if (errores.isEmpty()) {
+            try (PrintWriter out = resp.getWriter()) {
 
-        try (PrintWriter out = resp.getWriter()) {
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("     <head>");
+                out.println("         <meta charset=\"UTF-8\">");
+                out.println("         <title>Resultado form</title>");
+                out.println("     </head>");
+                out.println("     <body>");
+                out.println("         <h1>Resultado form!</h1>");
+                out.println("         <ul>");
 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("     <head>");
-            out.println("         <meta charset=\"UTF-8\">");
-            out.println("         <title>Resultado form</title>");
-            out.println("     </head>");
-            out.println("     <body>");
-            out.println("         <h1>Resultado form!</h1>");
-            out.println("         <ul>");
-            if(errores.isEmpty()) {
                 out.println("              <li> Username: " + username + "</li>");
                 out.println("              <li> Password: " + password + "</li>");
                 out.println("              <li> Email: " + email + "</li>");
@@ -88,16 +86,20 @@ public class FormServlet extends HttpServlet {
                 out.println("<li> Idioma: " + idioma + "</li>");
                 out.println("<li> Habilitado: " + habilitar + "</li>");
                 out.println("<li> Secreto: " + secreto + "</li>");
-            }else {
-                errores.forEach(err -> {
+
+
+                out.println("         </ul>");
+                out.println("     </body");
+                out.println("</html>");
+            }
+
+        } else {
+         /*       errores.forEach(err -> {
                     out.println("<li>" + err + "</li>");
                 });
-                out.println("<p><a href=\"/webapp-form/index.html\">volver</a></p>");
-            }
-            out.println("         </ul>");
-            out.println("     </body");
-            out.println("</html>");
-
+                out.println("<p><a href=\"/webapp-form/index.jsp\">volver</a></p>");*/
+            req.setAttribute("errores", errores);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
 
         }
     }

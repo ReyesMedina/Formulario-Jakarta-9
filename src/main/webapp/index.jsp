@@ -1,3 +1,9 @@
+<%@page contentType="text/html" pageEncoding="utf-8" %>
+<%@page import="java.util.List" %>
+<%
+List<String> errores = (List<String>) request.getAttribute("errores");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +12,19 @@
 </head>
 <body>
 <h3>Formulario de Usuarios</h3>
+<%
+    if(errores!=null && errores.size()>0){
+
+%>
+<ul>
+
+    <%
+    for(String err : errores){
+    %>
+    <li><%=err%></li>
+    <%}%>
+</ul>
+<%}%>
 <form action="/webapp-form/registro" method="post">
     <div>
         <label for="username">Username: </label>
