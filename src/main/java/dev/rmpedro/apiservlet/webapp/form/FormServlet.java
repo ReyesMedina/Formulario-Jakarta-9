@@ -29,10 +29,10 @@ public class FormServlet extends HttpServlet {
 
         Map<String,String> errores = new HashMap<>();
         if (username == null || username.isBlank()) {
-            errores.put("username","El username es requerido");
+            errores.put("username","El username es requerido.");
         }
         if (password == null || password.isBlank()) {
-            errores.put("password","El password es requerido");
+            errores.put("password","El password es requerido.");
         }
 
         if (email == null || !email.contains("@")) {
@@ -40,17 +40,17 @@ public class FormServlet extends HttpServlet {
         }
 
         if (pais == null || pais.equals("") || pais.equals(" ")) {
-            errores.put("pais","El pais es requerido");
+            errores.put("pais","El pais es requerido.");
         }
 
         if (lenguajes == null || lenguajes.length == 0) {
-            errores.put("lenguajes","debes seleccionar al menos un lenguaje");
+            errores.put("lenguajes","Debes seleccionar al menos un lenguaje.");
         }
         if (roles == null || roles.length == 0) {
-            errores.put("roles","debes seleccionar al menos un rol");
+            errores.put("roles","Debes seleccionar al menos un rol.");
         }
         if (idioma == null) {
-            errores.put("idioma","debes seleccionar un idioma");
+            errores.put("idioma","Debes seleccionar un idioma.");
         }
 
 
