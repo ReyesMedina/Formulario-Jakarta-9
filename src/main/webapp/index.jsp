@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>
-<%@page import="java.util.List" %>
+<%@page import="java.util.Map" %>
 <%
-List<String> errores = (List<String>) request.getAttribute("errores");
+Map<String,String> errores = (Map<String,String>) request.getAttribute("errores");
 
 %>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ List<String> errores = (List<String>) request.getAttribute("errores");
 <ul>
 
     <%
-    for(String err : errores){
+    for(String err : errores.values()){
     %>
     <li><%=err%></li>
     <%}%>
@@ -29,14 +29,29 @@ List<String> errores = (List<String>) request.getAttribute("errores");
     <div>
         <label for="username">Username: </label>
         <div><input type="text" name="username" id="username"></div>
+        <%
+        if(errores!=null && errores.containsKey("username")){
+            out.println("<small style='color:red;'>" + errores.get("username") + "</small>");
+        }
+        %>
     </div>
     <div>
         <label for="password">Password:</label>
         <div><input type="password" name="password" id="password"></div>
+        <%
+            if(errores!=null && errores.containsKey("password")){
+                out.println("<small style='color:red;'>" + errores.get("password") + "</small>");
+            }
+        %>
     </div>
     <div>
         <label for="email">Email: </label>
         <div><input type="text" name="email" id="email"></div>
+        <%
+            if(errores!=null && errores.containsKey("email")){
+                out.println("<small style='color:red;'>" + errores.get("email") + "</small>");
+            }
+        %>
     </div>
     <div>
         <label for="pais">Pais</label>
@@ -52,6 +67,11 @@ List<String> errores = (List<String>) request.getAttribute("errores");
                 <option value="VE">Venezuela</option>
             </select>
         </div>
+        <%
+            if(errores!=null && errores.containsKey("pais")){
+                out.println("<small style='color:red;'>" + errores.get("pais") + "</small>");
+            }
+        %>
     </div>
 
     <div>
@@ -66,6 +86,11 @@ List<String> errores = (List<String>) request.getAttribute("errores");
             <option value="react">React</option>
         </select>
     </div>
+        <%
+            if(errores!=null && errores.containsKey("lenguajes")){
+                out.println("<small style='color:red;'>" + errores.get("lenguajes") + "</small>");
+            }
+        %>
     </div>
     <div>
         <label>Roles</label>
@@ -81,6 +106,11 @@ List<String> errores = (List<String>) request.getAttribute("errores");
             <input type="checkbox" name="roles" value="ROLE_MODERATOR">
             <label>Moderador</label>
         </div>
+        <%
+            if(errores!=null && errores.containsKey("roles")){
+                out.println("<small style='color:red;'>" + errores.get("roles") + "</small>");
+            }
+        %>
     </div>
     <div>
         <label>Idiomas</label>
@@ -96,6 +126,11 @@ List<String> errores = (List<String>) request.getAttribute("errores");
             <input type="radio" name="idioma" value="fr">
             <label>Frances</label>
         </div>
+        <%
+            if(errores!=null && errores.containsKey("idioma")){
+                out.println("<small style='color:red;'>" + errores.get("idioma") + "</small>");
+            }
+        %>
     </div>
     <div>
         <label for="habilitar">Habilitar</label>
